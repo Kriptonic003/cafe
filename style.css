@@ -354,10 +354,10 @@ h1 {
 
 /* Navigation buttons container */
 .navigation-buttons {
-  display: flex;
+  /* display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 10px; */
   margin-top: 20px;
   flex-wrap: wrap;
 }
