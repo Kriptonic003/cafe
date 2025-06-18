@@ -1,0 +1,37 @@
+/* Apply background image to the full page */
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background-image: url('cafe4.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-family: 'Open Sans', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* Overlay to darken and center content */
+.overlay {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 40px;
+  border-radius: 20px;
+  color: white;
+  max-width: 90%;
+  width: 600px;
+}
+
+/* Heading font */
+h1 {
+  font-family: 'Pacifico', cursive;
+  font-size: 3em;
+  margin-bottom: 20px;
+}
+
+/* Spotify frame spacing */
+.spotify-player {
+  margin-top: 20px;
+}
