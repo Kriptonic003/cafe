@@ -10,23 +10,115 @@
     />
   </head>
   <body>
-    <div class="overlay">
-      <h1>Welcome to Cosy Bytes Café ☕</h1>
+    <!-- First Page - Café Welcome -->
+    <div class="page" id="page1">
+      <div class="overlay">
+        <h1>Welcome to Cosy Bytes Café ☕</h1>
 
-      <!-- Spotify Playlist Embed -->
-      <div class="spotify-player">
-        <iframe
-          style="border-radius: 12px"
-          src="https://open.spotify.com/embed/playlist/5vVSfOsF8YRueAI1dOI0Lh?utm_source=generator"
-          width="100%"
-          height="152"
-          frameborder="0"
-          allowfullscreen=""
-          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-          loading="lazy"
-        >
-        </iframe>
+        <!-- Spotify Playlist Embed -->
+        <div class="spotify-player">
+          <iframe
+            style="border-radius: 12px"
+            src="https://open.spotify.com/embed/playlist/5vVSfOsF8YRueAI1dOI0Lh?utm_source=generator"
+            width="100%"
+            height="152"
+            frameborder="0"
+            allowfullscreen=""
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+          >
+          </iframe>
+        </div>
+
+        <!-- Navigation to Quote Generator -->
+        <button class="nav-button" onclick="showPage('page2')">
+          ✨ Get Inspired ✨
+        </button>
       </div>
     </div>
+
+    <!-- Second Page - Quote Generator -->
+    <div class="page" id="page2" style="display: none">
+      <div class="quote-container">
+        <h2>Daily Dose of Inspiration 💭</h2>
+
+        <div class="quote-box">
+          <p id="quote-text">Click the button below to get a random quote!</p>
+          <p id="quote-author"></p>
+        </div>
+
+        <button class="quote-button" onclick="generateQuote()">
+          🌸 Generate Quote 🌸
+        </button>
+
+        <!-- Navigation back to Café -->
+        <button class="nav-button back-button" onclick="showPage('page1')">
+          ☕ Back to Café ☕
+        </button>
+      </div>
+    </div>
+
+    <script>
+      // Array of cute quotes
+      const quotes = [
+        {
+          text: 'Every day is a new beginning. Take a deep breath and start again.',
+          author: 'Anonymous',
+        },
+        {
+          text: 'You are capable of amazing things. Believe in yourself!',
+          author: 'Anonymous',
+        },
+        {
+          text: "Life is like a cup of tea. It's all in how you make it.",
+          author: 'Anonymous',
+        },
+        {
+          text: 'Sprinkle kindness like confetti everywhere you go.',
+          author: 'Anonymous',
+        },
+        {
+          text: 'You are braver than you believe, stronger than you seem, and smarter than you think.',
+          author: 'A.A. Milne',
+        },
+        {
+          text: 'The best time for new beginnings is now.',
+          author: 'Anonymous',
+        },
+        {
+          text: 'Your smile is contagious, spread it around!',
+          author: 'Anonymous',
+        },
+        {
+          text: 'Dream big, work hard, stay focused, and surround yourself with good people.',
+          author: 'Anonymous',
+        },
+        {
+          text: 'You make a difference every single day.',
+          author: 'Anonymous',
+        },
+        { text: 'Life is short, make it sweet.', author: 'Anonymous' },
+      ];
+
+      function generateQuote() {
+        const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+        document.getElementById(
+          'quote-text'
+        ).textContent = `"${randomQuote.text}"`;
+        document.getElementById(
+          'quote-author'
+        ).textContent = `- ${randomQuote.author}`;
+      }
+
+      function showPage(pageId) {
+        // Hide all pages
+        document.querySelectorAll('.page').forEach(page => {
+          page.style.display = 'none';
+        });
+
+        // Show the selected page
+        document.getElementById(pageId).style.display = 'flex';
+      }
+    </script>
   </body>
 </html>
