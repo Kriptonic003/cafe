@@ -34,6 +34,11 @@
         <button class="nav-button" onclick="showPage('page2')">
           ✨ Get Inspired ✨
         </button>
+
+        <!-- Navigation to Coffee Date -->
+        <button class="nav-button coffee-date-btn" onclick="showPage('page3')">
+          💕 Coffee Date 💕
+        </button>
       </div>
     </div>
 
@@ -55,6 +60,64 @@
         <button class="nav-button back-button" onclick="showPage('page1')">
           ☕ Back to Café ☕
         </button>
+      </div>
+    </div>
+
+    <!-- Third Page - Coffee Date Chatbot -->
+    <div class="page" id="page3" style="display: none">
+      <div class="chatbot-container">
+        <!-- Top home button -->
+        <button class="nav-button take-home-button" onclick="showPage('page1')">
+          🏠 Take Me Home
+        </button>
+
+        <h2>☕ Coffee Date ☕</h2>
+        <p class="chatbot-subtitle">Your virtual coffee companion!</p>
+
+        <div class="chat-area">
+          <div id="chat-messages">
+            <div class="message bot-message">
+              <span class="bot-avatar">🤖</span>
+              <div class="message-content">
+                Hi there! I'm your coffee companion! What would you like to chat
+                about?
+                <br /><br />
+                💬 Tell me a joke<br />
+                🎭 Share a pun<br />
+                💪 Give me motivation<br />
+                😌 Relaxation tips<br />
+                📋 Show me the menu<br />
+                ☕ Coffee facts
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="chat-input">
+          <input
+            type="text"
+            id="user-input"
+            placeholder="Type your message here..."
+            onkeypress="handleKeyPress(event)"
+          />
+          <button onclick="sendMessage()">💬</button>
+        </div>
+        <button
+          class="nav-button back-button working"
+          onclick="showPage('page1')"
+        >
+          ☕ Back to Café ☕
+        </button>
+        <!-- only above buttonworking -->
+        <!-- Navigation buttons -->
+        <div class="navigation-buttons">
+          <button class="nav-button back-button" onclick="showPage('page1')">
+            ☕ Back to Café ☕
+          </button>
+          <button class="nav-button home-button" onclick="showPage('page1')">
+            🏠 Home
+          </button>
+        </div>
       </div>
     </div>
 
@@ -100,6 +163,58 @@
         { text: 'Life is short, make it sweet.', author: 'Anonymous' },
       ];
 
+      // Chatbot responses
+      const chatbotResponses = {
+        greetings: [
+          'Hello there! ☕ How can I brighten your day today?',
+          'Hi! 👋 Welcome to our cozy coffee chat! What would you like to explore?',
+          'Hey! 🌟 Great to see you! Ready for some coffee-inspired conversation?',
+          "Hello! 💕 I'm your coffee companion! How can I help you today?",
+          "Hi there! ✨ Let's make this coffee break amazing! What's on your mind?",
+        ],
+        jokes: [
+          "Why don't scientists trust atoms? Because they make up everything! 😄",
+          'What do you call a fake noodle? An impasta! 🍝',
+          'Why did the scarecrow win an award? Because he was outstanding in his field! 🌾',
+          'What do you call a bear with no teeth? A gummy bear! 🐻',
+          "Why don't eggs tell jokes? They'd crack each other up! 🥚",
+        ],
+        puns: [
+          "I'm reading a book on anti-gravity. It's impossible to put down! 📚",
+          'Time flies like an arrow. Fruit flies like a banana! 🍌',
+          "What do you call a can opener that doesn't work? A can't opener! 🥫",
+          'I wondered why the baseball was getting bigger. Then it hit me! ⚾',
+          'What do you call a dinosaur that crashes his car? Tyrannosaurus wrecks! 🦖',
+        ],
+        motivation: [
+          'You are stronger than you think, braver than you believe, and more capable than you imagine! 💪',
+          'Every expert was once a beginner. Keep going! 🌟',
+          "Your potential is limitless. Don't let fear hold you back! ✨",
+          'Success is not final, failure is not fatal: it is the courage to continue that counts! 🎯',
+          'You have within you right now, everything you need to deal with whatever the world can throw at you! 🌈',
+        ],
+        relaxation: [
+          'Take 5 deep breaths: Inhale for 4 counts, hold for 4, exhale for 6. Repeat! 🫁',
+          'Progressive muscle relaxation: Tense each muscle group for 5 seconds, then release! 💆‍♀️',
+          'Mindful coffee moment: Savor each sip, notice the aroma, feel the warmth! ☕',
+          '5-4-3-2-1 grounding: Name 5 things you see, 4 you touch, 3 you hear, 2 you smell, 1 you taste! 🌸',
+          'Gentle stretching: Reach for the sky, then touch your toes. Feel the release! 🧘‍♀️',
+        ],
+        menu: [
+          '☕ Hot Drinks:<br>• Classic Espresso - $3.50<br>• Cappuccino - $4.50<br>• Latte - $4.75<br>• Americano - $3.75<br>• Hot Chocolate - $4.00',
+          '🥤 Cold Drinks:<br>• Iced Latte - $5.00<br>• Cold Brew - $4.50<br>• Frappuccino - $5.50<br>• Iced Americano - $4.00',
+          '🍰 Sweet Treats:<br>• Chocolate Croissant - $3.50<br>• Blueberry Muffin - $3.00<br>• Cheesecake Slice - $4.50<br>• Cookie - $2.50',
+          '🥪 Light Bites:<br>• Avocado Toast - $6.50<br>• Ham & Cheese Croissant - $4.50<br>• Greek Yogurt Bowl - $5.00',
+        ],
+        coffee: [
+          'Did you know? Coffee beans are actually seeds from coffee cherries! 🍒',
+          "Espresso means 'pressed out' in Italian - it's made by forcing hot water through finely ground beans! 🇮🇹",
+          "The world's most expensive coffee is Kopi Luwak, made from beans eaten and partially digested by civets! 🦝",
+          'Coffee was discovered by Ethiopian goats who became energetic after eating coffee berries! 🐐',
+          'The average coffee tree produces only 1-2 pounds of roasted coffee per year! 🌳',
+        ],
+      };
+
       function generateQuote() {
         const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
         document.getElementById(
@@ -118,6 +233,95 @@
 
         // Show the selected page
         document.getElementById(pageId).style.display = 'flex';
+      }
+
+      // Chatbot functions
+      function sendMessage() {
+        const input = document.getElementById('user-input');
+        const message = input.value.toLowerCase().trim();
+
+        if (message === '') return;
+
+        // Add user message
+        addMessage(message, 'user');
+        input.value = '';
+
+        // Generate bot response
+        setTimeout(() => {
+          const response = generateBotResponse(message);
+          addMessage(response, 'bot');
+        }, 500);
+      }
+
+      function handleKeyPress(event) {
+        if (event.key === 'Enter') {
+          sendMessage();
+        }
+      }
+
+      function addMessage(text, sender) {
+        const chatMessages = document.getElementById('chat-messages');
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${sender}-message`;
+
+        if (sender === 'bot') {
+          messageDiv.innerHTML = `
+            <span class="bot-avatar">🤖</span>
+            <div class="message-content">${text}</div>
+          `;
+        } else {
+          messageDiv.innerHTML = `
+            <div class="message-content">${text}</div>
+            <span class="user-avatar">👤</span>
+          `;
+        }
+
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
+      function generateBotResponse(message) {
+        if (
+          message.includes('hi') ||
+          message.includes('hello') ||
+          message.includes('hey')
+        ) {
+          return getRandomResponse(chatbotResponses.greetings);
+        } else if (message.includes('joke') || message.includes('funny')) {
+          return getRandomResponse(chatbotResponses.jokes);
+        } else if (message.includes('pun') || message.includes('wordplay')) {
+          return getRandomResponse(chatbotResponses.puns);
+        } else if (
+          message.includes('motivation') ||
+          message.includes('inspire') ||
+          message.includes('encourage')
+        ) {
+          return getRandomResponse(chatbotResponses.motivation);
+        } else if (
+          message.includes('relax') ||
+          message.includes('calm') ||
+          message.includes('stress')
+        ) {
+          return getRandomResponse(chatbotResponses.relaxation);
+        } else if (
+          message.includes('menu') ||
+          message.includes('food') ||
+          message.includes('drink')
+        ) {
+          return getRandomResponse(chatbotResponses.menu);
+        } else if (
+          message.includes('coffee') ||
+          message.includes('fact') ||
+          message.includes('learn')
+        ) {
+          return getRandomResponse(chatbotResponses.coffee);
+        } else {
+          return "I'm not sure what you mean! Try saying hi, asking for a joke, pun, motivation, relaxation tips, menu, or coffee facts! 💬";
+        }
+      }
+
+      function getRandomResponse(array) {
+        return array[Math.floor(Math.random() * array.length)];
       }
     </script>
   </body>
